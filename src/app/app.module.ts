@@ -16,6 +16,10 @@ import {MatListModule} from '@angular/material/list';
 import { MatTableModule } from '@angular/material/table';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatRadioModule } from '@angular/material/radio';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -36,7 +40,12 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     MatListModule,
     MatTableModule,
     MatDialogModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatRadioModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]

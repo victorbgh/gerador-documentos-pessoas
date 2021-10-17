@@ -1,1 +1,59 @@
-<p>home works!</p>
+<div class="container" style="margin-top: 50px;">
+    <div class="mat-elevation-z2" style="padding: 20px;">
+        <form [formGroup]="gerarPessoa" enctype="multipart/form-data">
+            <div class="row">
+                <div class="col-md-12">
+                    <h4>1. Qual sexo?</h4>
+                    <mat-radio-group aria-label="Selecione uma opção" formControlName="sexo">
+                        <mat-radio-button style="display: block; margin-bottom: 10px;" value="masculino">Masculino</mat-radio-button>
+                        <mat-radio-button style="display: block; margin-bottom: 10px;" value="feminino">Feminino</mat-radio-button>
+                        <mat-radio-button style="display: block;" value="aleatorio">Aleatório</mat-radio-button>
+                    </mat-radio-group>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-2">
+                    <h4>2. Qual estado? (opcional)</h4>
+                    <!-- <select class="form-control" formControlName="estado" (change)="setCidade()">
+                        <option *ngFor="let estado of estados; let i= index " [value]= "estado.ID">
+                            {{ estado.Sigla }}
+                        </option>
+                    </select> -->
+
+                    <mat-select formControlName="estado">
+                        <mat-option *ngFor="let estado of estados; let i= index " [value]= "estado.ID">
+                            {{ estado.Sigla }}
+                        </mat-option>
+                    </mat-select>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-2">
+                    <h4>3. Qual cidade? (opcional)</h4>
+                    <!-- <select class="form-control" formControlName="cidade" [disabled]="!teste">
+                        <option *ngFor="let cidade of cidadesEstados; let i= index " [value]= "cidade.ID">
+                            {{ cidade.Nome }}
+                        </option>
+                    </select> -->
+
+                    <mat-select formControlName="cidade" [disabled]="cidadesEstados.length == 0">
+                        <mat-option *ngFor="let cidade of cidadesEstados; let i= index " [value]= "cidade.ID">
+                            {{ cidade.Nome }}
+                        </mat-option>
+                    </mat-select>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-12">
+                    <button class="btn btn-success" (click)="gerarJsonPessoa()">
+                        <i class="fa fa-undo"></i> Gerar pessoa
+                    </button>
+                </div>
+            </div>
+        </form>
+        <br>
+    </div>
+</div>
