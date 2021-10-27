@@ -9,20 +9,16 @@
                         <mat-radio-button style="display: block; margin-bottom: 10px;" value="feminino">Feminino</mat-radio-button>
                         <mat-radio-button style="display: block;" value="aleatorio">Aleatório</mat-radio-button>
                     </mat-radio-group>
+                    <br>
+                    <mat-error *ngIf="submitted && gerarPessoa.get('sexo').errors?.required">Nome do usuário é obrigatório</mat-error>
                 </div>
             </div>
             <br>
             <div class="row">
                 <div class="col-md-2">
                     <h4>2. Qual estado? (opcional)</h4>
-                    <!-- <select class="form-control" formControlName="estado" (change)="setCidade()">
-                        <option *ngFor="let estado of estados; let i= index " [value]= "estado.ID">
-                            {{ estado.Sigla }}
-                        </option>
-                    </select> -->
-
                     <mat-select formControlName="estado">
-                        <mat-option *ngFor="let estado of estados; let i= index " [value]= "estado.ID">
+                        <mat-option *ngFor="let estado of estados; let i= index " [value]= "estado">
                             {{ estado.Sigla }}
                         </mat-option>
                     </mat-select>
@@ -32,14 +28,8 @@
             <div class="row">
                 <div class="col-md-2">
                     <h4>3. Qual cidade? (opcional)</h4>
-                    <!-- <select class="form-control" formControlName="cidade" [disabled]="!teste">
-                        <option *ngFor="let cidade of cidadesEstados; let i= index " [value]= "cidade.ID">
-                            {{ cidade.Nome }}
-                        </option>
-                    </select> -->
-
                     <mat-select formControlName="cidade" [disabled]="cidadesEstados.length == 0">
-                        <mat-option *ngFor="let cidade of cidadesEstados; let i= index " [value]= "cidade.ID">
+                        <mat-option *ngFor="let cidade of cidadesEstados; let i= index" [value]="cidade">
                             {{ cidade.Nome }}
                         </mat-option>
                     </mat-select>
