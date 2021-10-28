@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
@@ -27,7 +28,14 @@ export class HomeComponent implements OnInit {
 
   submitted: boolean = false;
 
-  constructor(private formBuilder: FormBuilder, private toastr: ToastrService) { }
+  pessoa = new Pessoa();
+
+  pessoaGerada:any;
+
+  constructor(
+    private formBuilder: FormBuilder, 
+    private toastr: ToastrService,
+    private http: HttpClient) { }
 
   ngOnInit(): void {
     this.gerarPessoa = this.formBuilder.group({
@@ -92,38 +100,47 @@ export class HomeComponent implements OnInit {
   gerarJsonPessoa(){
     this.submitted = true;
     if(this.gerarPessoa.valid){
-      let pessoa = new Pessoa();
       const dados = this.gerarPessoa.getRawValue();
 
-      pessoa = {...dados};
-      pessoa.sobrenome = this.sobrenome[this.gerarNumeroAleatorio(1801, 0)];
-      pessoa.dataNascimento = this.randomDate(new Date(1955, 0, 1), new Date());
-      pessoa.cpf = this.gerarCpf();
+      this.pessoa = {...dados};
+      this.pessoa.sobrenome = this.sobrenome[this.gerarNumeroAleatorio(1801, 0)];
+      this.pessoa.dataNascimento = this.randomDate(new Date(1955, 0, 1), new Date());
+      this.pessoa.cpf = this.gerarCpf();
 
       if(dados.sexo == 'aleatorio'){
-        this.gerarNumeroAleatorio(2, 0) == 0 ? pessoa.sexo = "masculino" : pessoa.sexo = "feminino";
+        this.gerarNumeroAleatorio(2, 0) == 0 ? this.pessoa.sexo = "masculino" : this.pessoa.sexo = "feminino";
       }
 
-      if(!pessoa.cidade ){
-
+      if(!this.pessoa.estado){
+        let id = this.gerarNumeroAleatorio(28, 0);
+        this.estados.forEach(element => {
+          if(element.ID == id){
+            this.pessoa.estado = element;
+          }
+        });
       }
 
-      if(!pessoa.estado){
-
+      if(!this.pessoa.cidade ){
+        let idEstado = this.pessoa.estado.ID
+        var cidadesArray =  this.cidades.filter(function(element) {
+          return element.Estado == idEstado;
+        });
+        let id = this.gerarNumeroAleatorio(cidadesArray.length, 0);
+        this.pessoa.cidade = cidadesArray[id];
       }
+
       
       if(dados.sexo == 'masculino'){
-        pessoa.nome = this.nomesHomem[this.gerarNumeroAleatorio(151, 0)];
+        this.pessoa.nome = this.nomesHomem[this.gerarNumeroAleatorio(151, 0)];
       } else {
-        pessoa.nome = this.nomesMulher[this.gerarNumeroAleatorio(151, 0)];
+        this.pessoa.nome = this.nomesMulher[this.gerarNumeroAleatorio(151, 0)];
       }
 
-      console.log(pessoa);
-      
+      console.log(this.pessoa);
+      this.pessoaGerada = JSON.stringify(this.pessoa, undefined, 4);
+      // this.pessoaGerada = this.pessoa;
 
-      // this.toastr.success('Hello world!', 'Toastr fun!');
-
-    }else{
+      this.toastr.success("Pessoa gerada com sucesso!");
 
     }
 

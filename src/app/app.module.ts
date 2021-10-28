@@ -21,6 +21,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { ToastrModule } from 'ngx-toastr';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { ToastrModule } from 'ngx-toastr';
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MatInputModule,
@@ -47,7 +49,11 @@ import { ToastrModule } from 'ngx-toastr';
     ReactiveFormsModule,
     MatFormFieldModule,
     MatSelectModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot({
+      timeOut: 4000,
+      positionClass: 'toast-top-center',
+      preventDuplicates: true,
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]
