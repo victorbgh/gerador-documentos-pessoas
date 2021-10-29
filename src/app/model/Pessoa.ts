@@ -6,7 +6,7 @@ export class Pessoa {
     sobrenome: string;
     cpf: string;
     sexo: string;
-    dataNascimento: Date;
+    dataNascimento: string;
     estado: Estado;
     cidade: Cidade;
 }

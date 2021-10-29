@@ -4,7 +4,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { Cidade } from '../model/Cidades';
 import { Pessoa } from '../model/Pessoa';
-
+import { Clipboard } from '@angular/cdk/clipboard';
+import { DatePipe } from '@angular/common';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -35,11 +36,11 @@ export class HomeComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder, 
     private toastr: ToastrService,
-    private http: HttpClient) { }
+    private clipboard: Clipboard) { }
 
   ngOnInit(): void {
     this.gerarPessoa = this.formBuilder.group({
-      sexo: ['', [Validators.required]],
+      sexo: ['aleatorio', [Validators.required]],
       estado: [''],
       cidade: ['']
     });
@@ -48,6 +49,11 @@ export class HomeComponent implements OnInit {
       this.setCidade();
     });
   }
+
+  public copy(value, value2) {
+    this.clipboard.copy(value + " " + value2);
+    this.toastr.warning("Campo copiado com sucesso");
+}
 
   setCidade(){
     const estado = this.gerarPessoa.get('estado').value;
@@ -104,11 +110,13 @@ export class HomeComponent implements OnInit {
 
       this.pessoa = {...dados};
       this.pessoa.sobrenome = this.sobrenome[this.gerarNumeroAleatorio(1801, 0)];
-      this.pessoa.dataNascimento = this.randomDate(new Date(1955, 0, 1), new Date());
+      var datePipe = new DatePipe("en-US");
+      let data = this.randomDate(new Date(1955, 0, 1), new Date());
+      this.pessoa.dataNascimento = datePipe.transform(data, 'dd/MM/yyyy');;
       this.pessoa.cpf = this.gerarCpf();
 
       if(dados.sexo == 'aleatorio'){
-        this.gerarNumeroAleatorio(2, 0) == 0 ? this.pessoa.sexo = "masculino" : this.pessoa.sexo = "feminino";
+        this.gerarNumeroAleatorio(2, 0) == 0 ? this.pessoa.sexo = "Masculino" : this.pessoa.sexo = "Feminino";
       }
 
       if(!this.pessoa.estado){
@@ -128,9 +136,8 @@ export class HomeComponent implements OnInit {
         let id = this.gerarNumeroAleatorio(cidadesArray.length, 0);
         this.pessoa.cidade = cidadesArray[id];
       }
-
       
-      if(dados.sexo == 'masculino'){
+      if(dados.sexo == 'Masculino'){
         this.pessoa.nome = this.nomesHomem[this.gerarNumeroAleatorio(151, 0)];
       } else {
         this.pessoa.nome = this.nomesMulher[this.gerarNumeroAleatorio(151, 0)];
@@ -138,7 +145,6 @@ export class HomeComponent implements OnInit {
 
       console.log(this.pessoa);
       this.pessoaGerada = JSON.stringify(this.pessoa, undefined, 4);
-      // this.pessoaGerada = this.pessoa;
 
       this.toastr.success("Pessoa gerada com sucesso!");
 

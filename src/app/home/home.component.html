@@ -5,8 +5,8 @@
                 <div class="col-md-12">
                     <h4>1. Qual sexo?</h4>
                     <mat-radio-group aria-label="Selecione uma opção" formControlName="sexo">
-                        <mat-radio-button style="display: block; margin-bottom: 10px;" value="masculino">Masculino</mat-radio-button>
-                        <mat-radio-button style="display: block; margin-bottom: 10px;" value="feminino">Feminino</mat-radio-button>
+                        <mat-radio-button style="display: block; margin-bottom: 10px;" value="Masculino">Masculino</mat-radio-button>
+                        <mat-radio-button style="display: block; margin-bottom: 10px;" value="Feminino">Feminino</mat-radio-button>
                         <mat-radio-button style="display: block;" value="aleatorio">Aleatório</mat-radio-button>
                     </mat-radio-group>
                     <br>
@@ -45,12 +45,63 @@
             </div>
         </form>
         <br>
-        <div class="container">
-            <pre>
-                <p>
-                    {{ pessoaGerada  }}
-                </p>
-            </pre>
-        </div>
+        <mat-tab-group *ngIf="pessoaGerada">
+            <mat-tab label="Formulário">
+                <br>
+                <div class="container">
+                    <div class="mat-elevation-z2" style="padding: 30px;">
+                        <div class="row">
+                            <div class="col-md-12 border">
+                                <label>Nome: </label> <span> {{pessoa.nome}} {{pessoa.sobrenome}} </span> <span (click)="copy(pessoa.nome, pessoa.sobrenome)" class="clipboard-copy"></span>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-12 border">
+                                <label>CPF: </label> <span> {{pessoa.cpf}} </span> <span (click)="copy(pessoa.cpf, '')" class="clipboard-copy"></span>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-12 border">
+                                <label>Data de nascimento: </label> <span> {{pessoa.dataNascimento}} </span> <span (click)="copy(pessoa.dataNascimento, '')" class="clipboard-copy"></span>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-12 border">
+                                <label>Sexo: </label> <span> {{pessoa.sexo}} </span> <span (click)="copy(pessoa.sexo, '')" class="clipboard-copy"></span>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-12 border">
+                                <label>Estado: </label> <span> {{pessoa.estado.Nome}} </span> <span (click)="copy(pessoa.estado.Nome, '')" class="clipboard-copy"></span>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-12 border">
+                                <label>Cidade: </label> <span> {{pessoa.cidade.Nome}} </span> <span (click)="copy(pessoa.cidade.Nome, '')" class="clipboard-copy"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div> 
+
+            </mat-tab>
+            <mat-tab label="JSON"> 
+                <br>
+                <div class="container">
+                    <div class="mat-elevation-z2" style="padding: 30px;">
+                        <pre>
+                            <p>
+                                {{ pessoaGerada  }}
+                            </p>
+                        </pre>
+                    </div>
+                </div>
+            </mat-tab>
+          </mat-tab-group>
+        
     </div>
 </div>

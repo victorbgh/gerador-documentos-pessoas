@@ -2,3 +2,38 @@ h1,h2,h3,h4,h5,h6{
     font-weight: bold;
 }
 
+.border{
+    border: 1px solid #d9d9d9; border-radius: 10px;
+    padding: 10px;
+}
+
+label{
+    font-size: 17px;
+    font-weight: bold;
+}
+
+span{
+    font-size: 15px;
+}
+
+.row{
+    position: relative;
+}
+
+.clipboard-copy, .clipboard-copy-textarea, .download-file {
+    float: right;
+    cursor: pointer;
+    background-image: url(../../assets/copy.svg);
+    background-repeat: no-repeat;
+    background-size: 100%;
+    width: 24px;
+    height: 24px;
+    position: absolute;
+    right: 20px;
+    top: 10px;
+}
+
+pre{
+    font-size: 16px;
+    font-weight: 700;
+}

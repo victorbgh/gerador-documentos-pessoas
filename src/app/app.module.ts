@@ -22,6 +22,8 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { ToastrModule } from 'ngx-toastr';
 import { HttpClientModule } from '@angular/common/http';
+import { MatTabsModule } from '@angular/material/tabs';
+import { ClipboardModule } from '@angular/cdk/clipboard';
 
 @NgModule({
   declarations: [
@@ -49,11 +51,13 @@ import { HttpClientModule } from '@angular/common/http';
     ReactiveFormsModule,
     MatFormFieldModule,
     MatSelectModule,
+    MatTabsModule,
     ToastrModule.forRoot({
       timeOut: 4000,
       positionClass: 'toast-top-center',
-      preventDuplicates: true,
-    })
+      preventDuplicates: false,
+    }),
+    ClipboardModule
   ],
   providers: [],
   bootstrap: [AppComponent]
